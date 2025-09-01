@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms & Conditions</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: "DM Sans", system-ui, sans-serif;
+      background-color: white; /* changed from grey to white */
+      color: #222;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 3rem auto;
+      padding: 2rem 1.5rem;
+      background: linear-gradient(135deg, #1f2a38, #3b1a1f);
+      color: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    h1 { font-size: 2.5rem; margin-bottom: 1rem; color: #fff; }
+    h2 { font-size: 2rem; margin-top: 2rem; margin-bottom: 1rem; color: #fff; }
+    p, li { margin-bottom: 1rem; }
+    ul { padding-left: 1.5rem; margin-bottom: 1rem; }
+
+    @media (max-width: 600px) {
+      .container { margin: 2rem 1rem; padding: 1.5rem 1rem; }
+      h1 { font-size: 2rem; }
+      h2 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Terms & Conditions</h1>
+
+    <section>
+      <h2>1. Geltungsbereich</h2>
+      <p>Diese Nutzungsbedingungen gelten für die Nutzung der Website von PhenoDecisions GmbH. Durch den Zugriff auf diese Website akzeptieren Sie diese Bedingungen.</p>
+    </section>
+
+    <section>
+      <h2>2. Nutzung der Website</h2>
+      <p>Sie verpflichten sich, die Website nur für rechtmäßige Zwecke zu nutzen und keine Inhalte zu veröffentlichen oder zu verbreiten, die rechtswidrig, beleidigend oder schädlich sind.</p>
+    </section>
+
+    <section>
+      <h2>3. Inhalte und Haftung</h2>
+      <p>Die Inhalte dieser Website wurden sorgfältig geprüft. Wir übernehmen jedoch keine Gewähr für die Richtigkeit, Vollständigkeit oder Aktualität der Inhalte. Die Nutzung erfolgt auf eigenes Risiko.</p>
+      <p>Haftung für Schäden, die direkt oder indirekt aus der Nutzung der Website entstehen, wird soweit gesetzlich zulässig ausgeschlossen.</p>
+    </section>
+
+    <section>
+      <h2>4. Links zu externen Websites</h2>
+      <p>Unsere Website kann Links zu externen Websites enthalten. Wir haben keinen Einfluss auf die Inhalte dieser Websites und übernehmen keine Verantwortung dafür.</p>
+    </section>
+
+    <section>
+      <h2>5. Änderungen der Bedingungen</h2>
+      <p>Wir behalten uns das Recht vor, diese Nutzungsbedingungen jederzeit zu ändern. Bitte prüfen Sie die Bedingungen regelmäßig auf Aktualisierungen.</p>
+    </section>
+
+    <section>
+      <h2>6. Anwendbares Recht</h2>
+      <p>Es gilt das Recht der Bundesrepublik Deutschland. Ausschließlicher Gerichtsstand für alle Streitigkeiten im Zusammenhang mit dieser Website ist Königswinter, soweit gesetzlich zulässig.</p>
+    </section>
+
+    <section>
+      <p>Version: 22.08.2025</p>
+    </section>
+  </div>
+
+  <!-- Footer placeholder -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Load footer dynamically -->
+  <script>
+    fetch('footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('footer-placeholder').innerHTML = data;
+      });
+  </script>
+</body>
+</html>

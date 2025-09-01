@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Header will be loaded here -->
+    <div id="header-placeholder"></div>
+
+    <main>
+        <div id="contact-placeholder"></div>
+    </main>
+
+    <!-- Toast message container -->
+    <div id="form-toast"
+        style="display:none; position: fixed; top: 20px; right: 20px; background: #333; color: #fff; padding: 1rem 1.5rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.3); z-index: 1000;">
+    </div>
+
+    <!-- Footer will be loaded here -->
+    <div id="footer-placeholder"></div>
+
+    <script src="js/gsap/minified/gsap.min.js"></script>
+    <script src="js/script.js"></script>
+
+
+    <script>
+        // Load header dynamically
+        fetch('header.html')
+            .then(r => r.text())
+            .then(html => {
+                document.getElementById('header-placeholder').innerHTML = html;
+
+                // Run hamburger JS AFTER header is inserted
+                const hamburger = document.getElementById("hamburger");
+                const mobileMenu = document.getElementById("mobileMenu");
+                if (hamburger && mobileMenu) {
+                    hamburger.addEventListener("click", () => {
+                        mobileMenu.classList.toggle("active");
+                    });
+                }
+            });
+
+        // Load footer
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('footer-placeholder').innerHTML = data);
+    </script>
+
+    <div id="form-toast"
+        style="display:none; position: fixed; top: 20px; right: 20px; background: #333; color: #fff; padding: 1rem 1.5rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.3); z-index: 1000;">
+    </div>
+
+    <script>
+        // Function to show toast
+        function showToast(message) {
+            const toast = document.getElementById('form-toast'); // define here
+            toast.textContent = message;
+            toast.style.display = 'block';
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateY(-20px)';
+
+            requestAnimationFrame(() => {
+                toast.style.transition = 'all 0.4s ease';
+                toast.style.opacity = '1';
+                toast.style.transform = 'translateY(0)';
+            });
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(-20px)';
+                setTimeout(() => toast.style.display = 'none', 400);
+            }, 6000);
+        }
+
+        // Load contact form dynamically and attach submit listener
+        fetch('contact-form.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('contact-placeholder').innerHTML = html;
+
+                const form = document.getElementById('contact-form');
+                if (!form) return; // safety check
+
+                form.addEventListener('submit', function (e) {
+                    e.preventDefault();
+
+                    const formData = new FormData(form);
+
+                    fetch('contact.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                        .then(r => r.text())
+                        .then(data => {
+                            showToast(data);
+                            form.reset();
+                        })
+                        .catch(() => showToast('Sorry, something went wrong. Please try again.'));
+                });
+            });
+    </script>
+
+</body>
+
+</html>

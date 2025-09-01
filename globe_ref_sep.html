@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Globe with References</title>
+    <link rel="stylesheet" href="style.css"> <!-- link global CSS -->
+
+    <!-- <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tailwind-scrollbar"></script> -->
+
+    <script src="js/globe.gl.js"></script>
+
+
+</head>
+
+<body class="globe-body">
+
+    <!-- Container holding both panel and globe -->
+
+    <div class="globe-container">
+
+        <!-- Left panel -->
+        <div id="leftPanel">
+            <h2>References</h2>
+            <div id="refList">
+                Click a highlighted country to see previously conducted research.
+            </div>
+        </div>
+
+        <!-- Globe container -->
+        <div id="globeContainer">
+            <canvas id="globeViz"></canvas>
+        </div>
+
+    </div>
+
+    <script src="./js/d3.v7.min.js"></script>
+
+
+    <script type="module">
+        import { MeshPhongMaterial, Color } from './js/three.module.js';
+        import { references } from './js/references2.js';
+
+        const highlightedCountries = ['CHL', 'USA', 'JPN', 'ESP', 'MAR', 'TUN', 'CHN', 'GBR', 'DEU', 'AFG'];
+        const container = document.getElementById('globeContainer');
+
+        const globe = new Globe(container)
+            .width(container.clientWidth)
+            .height(container.clientHeight)
+            .backgroundColor('rgba(255,255,255,0)')
+            .showGlobe(true)
+            .showAtmosphere(true)
+            .globeMaterial(new MeshPhongMaterial({
+                color: new Color('#ffffff'),
+                transparent: true,
+                opacity: 0.95,
+                shininess: 30,
+                specular: new Color('#aaaaaa')
+            }));
+
+        const controls = globe.controls();
+        globe.pointOfView({ lat: 45, lng: 0, altitude: 1.65 }, 0);
+
+        controls.domElement = globe.renderer().domElement;
+        controls.enableZoom = false;
+        controls.enablePan = true;
+        controls.enableRotate = true;
+        controls.autoRotate = true;
+        controls.autoRotateSpeed = 2;
+
+        const refList = document.getElementById('refList');
+        refList.innerHTML = `Click a highlighted country to see previously conducted research.`;
+
+        // Resize globe dynamically
+        function resizeGlobe() {
+            const container = document.getElementById('globeContainer');
+            // choose the smaller dimension to keep it square
+            const size = Math.min(container.clientWidth, window.innerHeight * 0.8);
+            globe.width(size);
+            globe.height(size);
+        }
+
+        // initial sizing
+        resizeGlobe();
+
+        // resize whenever window changes
+        window.addEventListener('resize', resizeGlobe);
+
+        const globalRefs = [
+            {
+                title: "Climate Change Affects Winter Chill for Temperate Fruit and Nut Trees",
+                authors: "E. Luedeling, E. H. Girvetz, M.A. Semenov, P.H. Brown",
+                journal: "PloS One, 6(5): e20155",
+                link: "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0020155"
+            },
+            {
+                title: "A global analysis of the comparability of winter chill models for fruit and nut trees",
+                authors: "E. Luedeling, P.H. Brown",
+                journal: "International Journal of Biometeorology, 55(3): 411-421",
+                link: "https://link.springer.com/article/10.1007/s00484-010-0352-y"
+            }
+        ];
+
+
+        fetch('./geojson/countries.json')
+            .then(res => res.json())
+            .then(data => {
+                const allCountries = [...new Set(references.flatMap(r => r.countries))];
+
+                // Filter out French Guiana polygon from France
+                const filteredFeatures = data.features.map(f => {
+                    // Filter French Guiana from France
+                    if (f.properties.iso_a3 === "FRA" && f.geometry.type === "MultiPolygon") {
+                        f.geometry.coordinates = f.geometry.coordinates.filter(
+                            polygon => !polygon.some(ring => ring.some(coord => coord[0] < -50 && coord[1] > 0))
+                        );
+                    }
+
+                    return f;
+                });
+
+                globe.hexPolygonsData(filteredFeatures)
+                    .hexPolygonResolution(3)
+                    .hexPolygonMargin(0.3)
+                    .hexPolygonUseDots(true)
+                    .hexPolygonAltitude(0.015)
+                    .hexPolygonColor(f =>
+                        allCountries.includes(f.properties.iso_a3) ? '#260b0d' : '#c2abab'
+                    );
+
+                globe.polygonsData(data.features)
+                    .polygonCapColor(() => 'rgba(0,0,0,0)')
+                    .polygonSideColor(() => 'rgba(0,0,0,0)')
+                    .polygonStrokeColor(() => 'rgba(0,0,0,0)')
+                    .polygonAltitude(0.02);
+
+                globe.onPolygonClick(d => {
+                    controls.autoRotate = false;
+                    const centroid = d3.geoCentroid(d);
+                    globe.pointOfView(
+                        { lat: centroid[1], lng: centroid[0], altitude: 1.65 },
+                        1000
+                    );
+
+                    // Country-specific references only for highlighted countries
+                    const countryRefs = allCountries.includes(d.properties.iso_a3)
+                        ? references.filter(r => r.countries.includes(d.properties.iso_a3))
+                        : [];
+
+                    // Always include the global references
+                    const combinedRefs = [...countryRefs, ...globalRefs];
+
+                    refList.innerHTML =
+                        `<h3>${d.properties.name}</h3>` +
+                        combinedRefs
+                            .map(r => {
+                                const authors = r.authors
+                                    .replace(/E\. Luedeling/g, '<b>E. Luedeling</b>')
+                                    .replace(/J\. N\. Bauer/g, '<b>J. N. Bauer</b>');
+                                return `
+          <div class="ref-entry">
+            <a href="${r.link}" target="_blank">${r.title}</a>
+            <div class="authors">${authors}</div>
+            <div class="journal">${r.journal}</div>
+          </div>`;
+                            })
+                            .join('');
+
+                    refList.scrollTop = 0;
+                    setTimeout(() => (controls.autoRotate = true), 15000);
+                });
+            });
+
+
+        function closePanel() {
+            refList.innerHTML = 'Click a highlighted country to see its references.';
+            controls.autoRotate = true;
+        }
+    </script>
+
+
+</body>
+
+</html>

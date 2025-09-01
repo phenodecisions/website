@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Impressum</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: "DM Sans", system-ui, sans-serif;
+      background-color: white; 
+      color: #222;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 900px;
+      margin: 3rem auto;
+      padding: 2rem 1.5rem;
+      background: linear-gradient(135deg, #1f2a38, #3b1a1f);
+      color: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    h1 { font-size: 2.5rem; margin-bottom: 1rem; color: #fff; }
+    h2 { font-size: 2rem; margin-top: 2rem; margin-bottom: 1rem; color: #fff; }
+    p, li { margin-bottom: 1rem; }
+    ul { padding-left: 1.5rem; margin-bottom: 1rem; }
+    @media (max-width: 600px) {
+      .container { margin: 2rem 1rem; padding: 1.5rem 1rem; }
+      h1 { font-size: 2rem; }
+      h2 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Impressum</h1>
+
+    <h2>Angaben gemäß § 5 TMG</h2>
+    <p><strong>PhenoDecisions GmbH</strong><br>
+    Laurentiusstr. 54b<br>
+    53639 Königswinter<br>
+    Deutschland</p>
+
+    <p><strong>Kontakt:</strong><br>
+    Tel.: +49 176 80635792<br>
+    E-Mail: info@phenodecisions.com</p>
+
+    <p><strong>Registereintrag:</strong><br>
+    Registergericht: Amtsgericht Siegburg<br>
+    Registernummer: HRB 18868</p>
+
+    <p><strong>Geschäftsführer:</strong><br>
+    Eike Lüdeling</p>
+
+    <p><strong>Umsatzsteuer-Identifikationsnummer:</strong><br>
+    DE456314372</p>
+
+    <p>Wir sind zur Teilnahme an einem Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle weder verpflichtet noch bereit.</p>
+
+    <p><strong>Version:</strong> 31.08.2025, 20:26:56 CET</p>
+  </div>
+
+  <!-- Footer placeholder -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Load footer dynamically -->
+  <script>
+    fetch('footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('footer-placeholder').innerHTML = data;
+      });
+  </script>
+</body>
+</html>
