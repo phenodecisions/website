@@ -209,14 +209,15 @@ body {
   text-align: left;
   padding: clamp(1rem, 3vw, 2rem);
   box-sizing: border-box;
+  max-height: 80%;   
+  overflow: visible;  
 }
 
 .header-text {
-  font-size: clamp(1.5rem, 4vw, 3.6rem);
+  font-size: clamp(2.2rem, 7vh, 3.1rem);
   font-weight: 900;
   color: white;
   line-height: 1.2;
-  white-space: normal;
   word-break: break-word;
   max-width: 100%;
   margin-bottom: 2px;
