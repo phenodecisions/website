@@ -1,38 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Our Services</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhenoDecisions</title>
+    <link rel="stylesheet" href="style.css?v=3">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="images/icons/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="images/icons/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="64x64" href="images/icons/favicon-64x64.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="images/icons/favicon-96x96.png">
+
+    <!-- Apple touch icon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="images/icons/apple-touch-icon.png">
+
+    <!-- Windows tile -->
+    <meta name="msapplication-TileImage" content="images/icons/mstile-150x150.png">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="json/manifest.json">
+</head>
+
+<body>
+    <div id="wrapper">
+        <div id="content">
+
+            <div id="header-placeholder"></div>
   <header class="section-title">Our Services in Detail</header>
 
-  <section id="phenology" class="detail-section">
+  <section id="phenology" class="section">
     <h2>Phenology Modelling</h2>
     <p>With self-developed process-based phenology modelling approaches, we deliver reliable
        predictions of key phenological stages in fruit and nut trees.</p>
   </section>
 
-  <section id="region" class="detail-section">
+  <section id="region" class="section">
     <h2>Region-Oriented Support</h2>
     <p>By calibrating our models to specific growing regions, we deliver precise predictions that
        account for local climate and environmental variations.</p>
   </section>
 
-  <section id="frost" class="detail-section">
+  <section id="frost" class="section">
     <h2>Frost Risk Assessments</h2>
     <p>Assessing potential future frost occurrences in relation to the vulnerability of specific
        phenological stages delivers essential insights for informed decision-making.</p>
   </section>
 
-  <section id="cultivar" class="detail-section">
+  <section id="cultivar" class="section">
     <h2>Cultivar-Specific Forecasts</h2>
     <p>Our models are tailored to individual cultivars, providing accurate predictions of their
        phenological development under current and future climate conditions.</p>
   </section>
 
+            <div id="footer-placeholder"></div>
+
+
+        </div>
+    </div>
+
 </body>
+
+ <script>
+        // Load header dynamically
+        fetch('header.html')
+            .then(r => r.text())
+            .then(html => {
+                document.getElementById('header-placeholder').innerHTML = html;
+
+                // Run hamburger JS AFTER header is inserted
+                const hamburger = document.getElementById("hamburger");
+                const mobileMenu = document.getElementById("mobileMenu");
+                if (hamburger && mobileMenu) {
+                    hamburger.addEventListener("click", () => {
+                        mobileMenu.classList.toggle("active");
+                    });
+                }
+                // After header is injected
+                const links = document.querySelectorAll(".header-link");
+                const arrows = document.querySelectorAll(".header-link .arrow");
+                const logo = document.querySelector(".logo-img");
+
+                // Re-init GSAP animations for links and arrows
+                links.forEach(link => {
+                    gsap.to(link, {
+                        y: gsap.utils.random(-1, 1),
+                        duration: 1,
+                        repeat: -1,
+                        yoyo: true,
+                        ease: "power1.inOut"
+                    });
+
+                    link.addEventListener("mouseenter", () => {
+                        gsap.to(link, {
+                            y: gsap.utils.random(-1, 1),
+                            duration: 0.2,
+                            repeat: 3,
+                            yoyo: true,
+                            ease: "power1.inOut"
+                        });
+                    });
+                });
+
+                arrows.forEach(arrow => {
+                    const parentLink = arrow.closest(".header-link");
+                    parentLink.addEventListener("mouseenter", () => {
+                        gsap.to(arrow, { x: 12, duration: 0.4, ease: "power2.out" });
+                    });
+                    parentLink.addEventListener("mouseleave", () => {
+                        gsap.to(arrow, { x: 0, rotation: 0, duration: 0.6, ease: "elastic.out(1, 0.5)" });
+                    });
+                });
+
+                // Logo wobble
+                if (logo) {
+                    let wobbleTween;
+                    logo.addEventListener("mouseenter", () => {
+                        if (wobbleTween) wobbleTween.kill();
+                        wobbleTween = gsap.timeline()
+                            .to(logo, { rotation: 12, duration: 0.4, ease: "power1.out" })
+                            .to(logo, { rotation: -12, duration: 0.4, ease: "power1.inOut" })
+                            .to(logo, { rotation: 0, duration: 0.6, ease: "power2.out" });
+                    });
+                }
+
+            });
+
+        fetch("footer.html")
+            .then(res => res.text())
+            .then(html => document.getElementById("footer-placeholder").innerHTML = html);
+    </script>
+
 </html>

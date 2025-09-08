@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -115,48 +115,40 @@
 
 
             <section id="about" class="section">
-                <div class="section-title">About Us</div>
-
-                <div class="section-grid">
-
-                    <div class="section-panel about-panel" onclick="this.classList.toggle('active')">
-                        <div class="about-image">
-                            <img src="images/eike_luedeling.jpg" alt="Eike Luedeling">
-                        </div>
-                        <div class="about-info">
-                            <h3>Prof. Dr. Eike Luedeling</h3>
-                            <p>CEO</p>
-                        </div>
-                        <!-- <div class="about-footer">
-                            <div class="arrow">➔</div>
-                        </div> -->
-                        <!-- <div class="about-overlay">
-                            <p>Additional text about Jane Doe goes here. You can describe her background, experience, or
-                                achievements.</p>
-                            <a href="about.html">Read more →</a>
-                        </div> -->
+                <div class="about-layout">
+                    <div class="about-intro">
+                        <div class="section-title">About Us</div>
+                        <p class="section-subtitle">
+                            With a strong foundation in phenology and climate risk research, we combine extensive
+                            experience to develop practical, data-driven solutions that support decision-making in
+                            horticulture, with a focus on fruit and nut production.
+                        </p>
                     </div>
 
-                    <div class="section-panel about-panel" onclick="this.classList.toggle('active')">
-                        <div class="about-image">
-                            <img src="images/default_icon.png" alt="Default Icon">
+                    <div class="section-grid">
+                        <div class="section-panel about-panel" onclick="this.classList.toggle('active')">
+                            <div class="about-image">
+                                <img src="images/eike_luedeling.jpg" alt="Eike Luedeling">
+                            </div>
+                            <div class="about-info">
+                                <h3>Prof. Dr. Eike Luedeling</h3>
+                                <p>CEO</p>
+                            </div>
                         </div>
-                        <div class="about-info">
-                            <h3>Julian Bauer</h3>
-                            <p> </p>
-                        </div>
-                        <!-- <div class="about-footer">
-                            <div class="arrow">➔</div>
-                        </div> -->
-                        <!-- <div class="about-overlay">
-                            <p>Additional text about John Smith goes here. You can describe his background, experience,
-                                or achievements.</p>
-                            <a href="about.html">Read more →</a>
-                        </div> -->
-                    </div>
 
+                        <div class="section-panel about-panel" onclick="this.classList.toggle('active')">
+                            <div class="about-image">
+                                <img src="images/julian_bauer.jpg" alt="Julian Bauer">
+                            </div>
+                            <div class="about-info">
+                                <h3>Julian Bauer</h3>
+                                <p> </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
+
 
 
 
@@ -170,11 +162,25 @@
                 </p>
 
                 <div class="globe-container">
-                    <div class="globe-wrapper">
-                        <iframe src="globe_ref_sep.html"></iframe>
+                    <div id="refList">
+                        <div class="text-bg">
+                            Click a highlighted country to see previously conducted research.
+                        </div>
+                    </div>
+
+                    <div id="globeContainer" style="position: relative;">
+                        <canvas id="globeViz"></canvas>
+                        <div class="globe-label">50+ global phenology studies</div>
                     </div>
                 </div>
             </section>
+
+            <!-- Include d3 and Globe.gl first -->
+            <script src="js/d3.v7.min.js"></script>
+            <script src="js/globe.gl.js"></script>
+
+            <!-- Then your main JS module -->
+            <script type="module" src="js/globe_main.js"></script>
 
 
 
@@ -186,30 +192,39 @@
 
                     <div class="section-panel services-panel">
                         <img src="images/blossoms2.jpg" alt="Service 1">
-                        <h3>Phenology Modelling</h3>
-                        <a href="services.html#phenology" class="learn-more">➜ Learn more</a>
+                        <div class="services-header">
+                            <h3>Phenology Modelling</h3>
+                            <!-- <a href="services.html#phenology" class="learn-more">➜ Learn more</a> -->
+                        </div>
                     </div>
 
                     <div class="section-panel services-panel">
                         <img src="images/row.jpg" alt="Service 2b">
-                        <h3>Region-Oriented Support</h3>
-                        <a href="services.html#region" class="learn-more">➜ Learn more</a>
+                        <div class="services-header">
+                            <h3>Region-Oriented Support</h3>
+                            <!-- <a href="services.html#region" class="learn-more">➜ Learn more</a> -->
+                        </div>
                     </div>
 
                     <div class="section-panel services-panel">
                         <img src="images/cherry_bloom2.jpg" alt="Service 3">
-                        <h3>Frost Risk Assessments</h3>
-                        <a href="services.html#frost" class="learn-more">➜ Learn more</a>
+                        <div class="services-header">
+                            <h3>Frost Risk Assessments</h3>
+                            <!-- <a href="services.html#frost" class="learn-more">➜ Learn more</a> -->
+                        </div>
                     </div>
 
                     <div class="section-panel services-panel">
                         <img src="images/fruitset.jpg" alt="Service 2a">
-                        <h3>Cultivar-Specific Forecasts</h3>
-                        <a href="services.html#cultivar" class="learn-more">➜ Learn more</a>
+                        <div class="services-header">
+                            <h3>Cultivar-Specific Forecasts</h3>
+                            <!-- <a href="services.html#cultivar" class="learn-more">➜ Learn more</a> -->
+                        </div>
                     </div>
 
                 </div>
             </section>
+
 
 
 
@@ -232,6 +247,7 @@
     <script src="js/gsap.min.js"></script>
     <script src="js/ScrollTrigger.min.js"></script>
     <script src="js/ScrollSmoother.min.js"></script>
+    <script src="js/MotionPathPlugin.min.js"></script>
 
     <!-- your site code last (load once) -->
     <script src="js/script.js"></script>

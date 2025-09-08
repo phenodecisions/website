@@ -588,9 +588,8 @@ p {
 .section {
   width: 95%;
   max-width: 1200px;
-  margin: 40px auto;
+  margin: 150px auto; /* increased top/bottom spacing for desktop */
   padding: 1rem;
-  /* optional horizontal padding */
   text-align: center;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
@@ -598,6 +597,12 @@ p {
   color: white;
   display: flex;
   flex-direction: column;
+}
+
+@media (max-width: 768px) {
+  .section {
+    margin: 30px auto; /* smaller spacing for mobile */
+  }
 }
 
 .section-title {
@@ -725,6 +730,54 @@ p {
 
 }
 
+#about .about-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+#about .about-intro {
+  flex: 1;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* vertical centering */
+}
+
+#about .section-title,
+#about .section-subtitle {
+  display: block;
+  text-align: left;
+  margin-left: 10px; /* optional: same left margin for both */
+}
+
+#about .section-subtitle {
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  line-height: 1.5;
+  color: #ddd;
+}
+
+/* On larger screens: title+text left, panels right */
+@media (min-width: 992px) {
+  #about .about-layout {
+    flex-direction: row;
+    align-items: stretch; /* make both columns the same height */
+  }
+
+  #about .about-intro {
+    flex: 1;
+    max-width: 35%;
+  }
+
+  #about .section-grid {
+    flex: 2;
+    display: flex;
+    gap: 2rem;
+  }
+}
+
+
 .about-image {
   display: flex;
   justify-content: center;
@@ -813,6 +866,18 @@ p {
   text-align: left;
 }
 
+.services-header {
+  display: flex;
+  justify-content: space-between; /* pushes h3 left, button right */
+  align-items: center;
+  width: 100%;
+  margin: 0.5rem 0 1rem; /* same spacing as your h3 had */
+}
+
+.services-header h3 {
+  margin: 0; /* remove extra spacing */
+}
+
 .learn-more {
   display: inline-flex;
   align-items: center;
@@ -832,118 +897,146 @@ p {
 }
 
 
-/* Body wrapper (for page that holds the globe section) */
+/* === Global Reset / Touch Highlights === */
+* {
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0) !important;
+  -webkit-focus-ring-color: rgba(255, 255, 255, 0) !important;
+  outline: none !important;
+}
+
+/* === Global reset for tap & focus === */
+* {
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0) !important;
+  -webkit-focus-ring-color: rgba(255, 255, 255, 0) !important;
+  outline: none !important;
+}
+
+/* === Body wrapper === */
 body.globe-body {
   display: flex;
   justify-content: center;
   align-items: flex-start;
   background-color: transparent;
-  height: auto;
   padding: 1rem;
   box-sizing: border-box;
+  height: auto;
 }
 
-/* Globe section wrapper */
+/* === Globe section wrapper === */
 .globe-section {
   width: 95%;
   max-width: 1200px;
-  margin: 80px auto;
-  margin-bottom: 0;
+  margin: 80px auto 0;
+  margin-bottom: 4rem;
   padding: 0;
-  /* remove all padding to remove visual gaps */
-
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .globe-section h2 {
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .globe-intro {
   font-size: 1rem;
-  margin: 0 0 1.5rem 0;
-  /* space below text */
+  margin: 0 0 1rem 0;
   text-align: justify;
-  /* blocksatz */
   line-height: 1.6;
-  max-width: 50%;
-  white-space: normal;
-  /* allow wrapping */
+  max-width: 800px;
 }
 
-/* === Main container: panel + globe side by side === */
+/* === Main container: globe + panel === */
 .globe-container {
   display: flex;
   gap: 2rem;
   width: 100%;
-  margin: 0;
-  /* center horizontally */
-  padding: 0;
-  /* no padding */
-  min-height: 500px;
-  /* prevent collapsing */
-  height: 50vh;
-  /* keep consistent height */
-  align-items: stretch;
-  /* children equal height */
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
-/* === Left Panel === */
-#leftPanel {
-  width: 26rem;
-  /* fixed width */
-  flex-shrink: 0;
-  /* prevents shrinking on narrow screens */
-  display: flex;
-  flex-direction: column;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #1f2a38, #3b1a1f);
-  color: white;
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
-  padding: 1.5rem;
-  padding-top: 1rem;
-  flex: 0 0 auto;
-  /* don’t stretch, height = content */
-
-  /* equal height + scrolling */
+/* === Globe side === */
+#globeContainer,
+.globe-wrapper {
+  flex: 1 1 60%;
+  min-width: 300px;
   max-height: 700px;
-  max-width: 100%;
-  /* never overflow */
-  overflow: visible;
-  /* allow refList to scroll internally */
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: auto;
 }
 
-#leftPanel h2 {
-  margin-top: 0.0em;
-  /* reduce top space */
-  margin-bottom: 0.3em;
-  /* reduce bottom space */
+#globeViz,
+.globe-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border: none;
 }
 
+#globeViz {
+    position: relative;
+    z-index: 1; /* below the label */
+}
 
-/* Reference list scrolls independently */
+.globe-container {
+    position: relative; /* make this the reference for absolute positioning */
+}
+
+.globe-label {
+    position: absolute;
+    top: 50%;               /* vertical center */
+    left: 50%;              /* horizontal center */
+    transform: translate(-50%, -50%); /* center the label exactly */
+    background-color: rgba(255, 255, 255, 0.85);
+    color: #000;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    pointer-events: none;
+    z-index: 9999;          /* ensure it’s on top of the globe */
+    text-align: center;
+    white-space: nowrap;    /* keep label on one line */
+}
+
+/* === Reference panel === */
 #refList {
+  flex: 0 0 300px;
+  max-width: 35%;
+  max-height: 700px;
   overflow-y: auto;
-  max-height: 70vh;
-  /* optional: limit height for very long lists */
-  margin-top: 0.2rem;
-  padding: 0.5rem;
-  background-color: rgba(255, 255, 255, 0.3);
-  border-radius: 1rem;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  background: linear-gradient(135deg, #1f2a38, #3b1a1f); /* panel gradient */
   color: white;
+  border-radius: 12px;
+  padding: 1rem;
+  box-sizing: border-box;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  line-height: 1.4;
+}
+
+/* Transparent background for text */
+#refList .text-bg {
+  background-color: rgba(255, 255, 255, 0.2); /* semi-transparent white */
+  border-radius: 8px;
+  padding: 0.75rem;
 }
 
 #refList h3 {
-  margin-top: 0rem;
-  margin-bottom: 0.5rem;
+  margin: 0 0 0.5rem 0;
   font-size: 1.1rem;
   font-weight: 600;
 }
 
-/* Reference entry */
-.ref-entry {
-  margin-bottom: 1rem;
+#refList .ref-entry {
+  background-color: rgba(255, 255, 255, 0.2); /* semi-transparent white */
+  border-radius: 8px;                           /* rounded corners */
+  padding: 0.75rem;                             /* inner spacing */
+  margin-bottom: 0.75rem;                       /* space between entries */
 }
 
 .ref-entry a {
@@ -965,7 +1058,11 @@ body.globe-body {
   color: #aab3bc;
 }
 
-/* Scrollbar styling for refList */
+#refList a:hover {
+  color: #a6ddff;
+}
+
+/* Scrollbar styling */
 #refList::-webkit-scrollbar {
   width: 3px;
 }
@@ -979,122 +1076,80 @@ body.globe-body {
   background: rgba(0, 0, 0, 0.05);
 }
 
-/* Links hover */
-#refList a:hover {
-  color: #a6ddff;
+/* === Responsive === */
+@media (max-width: 900px) {
+  .globe-container {
+    flex-direction: column-reverse;
+  }
+
+  #globeContainer,
+  #refList,
+  #leftPanel {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+
+  #refList {
+    max-height: 400px;
+    margin-top: 1rem;
+  }
 }
-
-/* === Globe side === */
-#globeContainer {
-  flex: 1 1 450px;
-  /* allow shrinking */
-  /* take remaining space */
-  min-width: 250px;
-  /* keep visible */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#globeViz {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-/* Wrapper for iframe or canvas globe */
-.globe-wrapper {
-  flex: 1;
-  width: 100%;
-  height: 100%;
-  display: flex;
-}
-
-.globe-wrapper iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
-  display: block;
-}
-
-
 
 @media (max-width: 768px) {
   .globe-intro {
     text-align: center;
-    /* center text on mobile */
-    margin-left: auto;
-    /* center block horizontally */
-    margin-right: auto;
+    margin: 0 auto 1rem auto;
     max-width: 90%;
-
   }
 
   .globe-container {
-    width: 95%;
-    margin: 60px auto;
-    padding: 0;
-    flex-direction: column;
-    /* stack vertically */
-    align-items: stretch;
-    /* make children full width */
+    width: 100%;
+    /* full width */
+    margin: 40px auto;
+    /* valid value */
+    flex-direction: column-reverse;
     gap: 1rem;
-    /* space between globe & panel */
-    height: 50vh;
-    /* keep consistent height */
-
     min-height: 100px;
   }
 
   #globeContainer {
     order: 0;
-    /* appear first */
-    flex: none;
-    /* don't stretch */
     width: 100%;
     height: auto;
-    /* let it size naturally */
     min-height: 250px;
-    /* ensure it’s visible */
-    min-width: 250px;
-    /* ensure it’s visible */
   }
 
   #leftPanel {
     order: 1;
     width: 100%;
-    /* panel takes full width below globe */
     max-height: none;
-    /* remove previous max-height */
     overflow: visible;
-    /* let scrolling work inside refList */
-  }
-
-  #refList {
-    max-height: 400px;
-    /* scrolling area inside panel */
-    overflow-y: auto;
   }
 }
 
-@media (max-width: 768px) {
-  .globe-container {
-    width: 95%;
-    margin: 40px auto;
-    padding: 0;
-    min-height: 1000px;
+/* Add this to your CSS file */
 
-  }
+.globe-label {
+  position: absolute;
+  top: 55%;
+  left: 60%;
+  transform: translate(-50%, -50%);
+  padding: 0.6rem 1rem;
+  background: #f9f9f9;
+  color: #635a5a;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 1rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  white-space: nowrap;
+  pointer-events: none;
 
-  .globe-section {
-    padding: 0;
-  }
-
-
+  /* Floating balloon animation */
+  animation: floaty 4s ease-in-out infinite;
 }
 
-* {
-  -webkit-tap-highlight-color: rgba(255, 255, 255, 0) !important;
-  -webkit-focus-ring-color: rgba(255, 255, 255, 0) !important;
-  outline: none !important;
+@keyframes floaty {
+  0%   { transform: translate(-50%, -50%) translateY(0px); }
+  50%  { transform: translate(-50%, -50%) translateY(-8px); }
+  100% { transform: translate(-50%, -50%) translateY(0px); }
 }

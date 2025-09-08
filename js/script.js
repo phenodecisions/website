@@ -274,3 +274,4 @@ grid.addEventListener('mouseleave', () => {
         panel.querySelector('.crop-inner').classList.remove('crop-flipped');
     });
 });
+
