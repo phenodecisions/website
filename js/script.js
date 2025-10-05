@@ -139,23 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // -------------------------
-  // Logo spinning
-  // -------------------------
-  const logo = document.querySelector(".logo-img");
-  let wobbleTween; // store the current animation
 
-  if (logo) {
-    logo.addEventListener("mouseenter", () => {
-      if (wobbleTween) wobbleTween.kill(); // stop previous animation
-
-      wobbleTween = gsap.timeline();
-      wobbleTween
-        .to(logo, { rotation: 12, duration: 0.4, ease: "power1.out" })
-        .to(logo, { rotation: -12, duration: 0.4, ease: "power1.inOut" })
-        .to(logo, { rotation: 0, duration: 0.6, ease: "power2.out" });
-    });
-  }
 });
 
 
@@ -208,22 +192,7 @@ function getPolygonCentroid(feature) {
 }
 
 
-function initLogoWiggle() {
-  const logo = document.querySelector(".logo-img");
-  let wobbleTween;
 
-  if (logo) {
-    logo.addEventListener("mouseenter", () => {
-      if (wobbleTween) wobbleTween.kill();
-
-      wobbleTween = gsap.timeline();
-      wobbleTween
-        .to(logo, { rotation: 12, duration: 0.4, ease: "power1.out" })
-        .to(logo, { rotation: -12, duration: 0.4, ease: "power1.inOut" })
-        .to(logo, { rotation: 0, duration: 0.6, ease: "power2.out" });
-    });
-  }
-}
 
 
 

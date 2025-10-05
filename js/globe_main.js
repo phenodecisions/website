@@ -39,30 +39,13 @@ controls.autoRotateSpeed = 2;
 
 // --- Dynamic globe label ---
 // --- Dynamic globe label ---
-const globeLabel = document.createElement('div');
-globeLabel.className = 'globe-label';
-globeLabel.innerText = 'Experience from \nover 30 phenology\n studies worldwide';
-globeLabel.style.position = 'absolute';
 
-container.appendChild(globeLabel);
-
-function updateGlobeLabel() {
-    const rect = container.getBoundingClientRect(); // get actual container size
-    globeLabel.style.fontSize = `${Math.max(12, rect.height * 0.04)}px`;
-    globeLabel.style.left = `${rect.width * 0.2}px`;   // moved a bit more right
-    globeLabel.style.top = `${rect.height * 0.77}px`;  // move lower
-}
-updateGlobeLabel();
-
-// --- Update on resize ---
-window.addEventListener('resize', updateGlobeLabel);
 
 // --- Responsive resize ---
 function resizeGlobe() {
     const size = Math.min(container.clientWidth, window.innerHeight * 0.8);
     globe.width(size);
     globe.height(size);
-    updateGlobeLabel(); // also update label when globe resizes
 }
 resizeGlobe();
 window.addEventListener('resize', resizeGlobe);

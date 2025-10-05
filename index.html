@@ -15,7 +15,7 @@
     <link rel="icon" type="image/png" sizes="96x96" href="images/icons/favicon-96x96.png">
 
     <!-- Apple touch icon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="images/icons/apple-touch-icon.png">
+    <!-- <link rel="apple-touch-icon" sizes="180x180" href="images/icons/apple-touch-icon.png"> -->
 
     <!-- Windows tile -->
     <meta name="msapplication-TileImage" content="images/icons/mstile-150x150.png">
@@ -358,16 +358,16 @@
                 });
 
                 // Logo wobble
-                if (logo) {
-                    let wobbleTween;
-                    logo.addEventListener("mouseenter", () => {
-                        if (wobbleTween) wobbleTween.kill();
-                        wobbleTween = gsap.timeline()
-                            .to(logo, { rotation: 12, duration: 0.4, ease: "power1.out" })
-                            .to(logo, { rotation: -12, duration: 0.4, ease: "power1.inOut" })
-                            .to(logo, { rotation: 0, duration: 0.6, ease: "power2.out" });
-                    });
-                }
+                // if (logo) {
+                //     let wobbleTween;
+                //     logo.addEventListener("mouseenter", () => {
+                //         if (wobbleTween) wobbleTween.kill();
+                //         wobbleTween = gsap.timeline()
+                //             .to(logo, { rotation: 12, duration: 0.4, ease: "power1.out" })
+                //             .to(logo, { rotation: -12, duration: 0.4, ease: "power1.inOut" })
+                //             .to(logo, { rotation: 0, duration: 0.6, ease: "power2.out" });
+                //     });
+                // }
 
             });
 
