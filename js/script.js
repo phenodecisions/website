@@ -93,51 +93,61 @@ document.addEventListener("DOMContentLoaded", () => {
   // Arrow squiggle
   // -------------------------
   // --- Arrow squiggle on hover (GSAP) ---
-(function initArrowSquiggle() {
-  const arrows = document.querySelectorAll(".header-link .arrow");
+  (function initArrowSquiggle() {
+    const arrows = document.querySelectorAll(".header-link .arrow");
 
-  arrows.forEach(arrow => {
-    const parentLink = arrow.closest(".header-link");
+    arrows.forEach(arrow => {
+      const parentLink = arrow.closest(".header-link");
 
-    // Hover → smooth shift to the right
-    parentLink.addEventListener("mouseenter", () => {
-      gsap.to(arrow, {
-        x: 10,              // shift right a bit more
-        duration: 0.3,
-        ease: "sine.inOut"
+      // Hover → smooth shift to the right
+      parentLink.addEventListener("mouseenter", () => {
+        gsap.to(arrow, {
+          x: 10,              // shift right a bit more
+          duration: 0.3,
+          ease: "sine.inOut"
+        });
+      });
+
+      // Leave → shift back smoothly
+      parentLink.addEventListener("mouseleave", () => {
+        gsap.to(arrow, {
+          x: 0,
+          duration: 0.4,
+          ease: "sine.inOut"
+        });
       });
     });
-
-    // Leave → shift back smoothly
-    parentLink.addEventListener("mouseleave", () => {
-      gsap.to(arrow, {
-        x: 0,
-        duration: 0.4,
-        ease: "sine.inOut"
-      });
-    });
-  });
-})();
+  })();
 
 
-  // -------------------------
-  // Section background color animation
-  // -------------------------
+  // // -------------------------
+  // // Section background color animation
+  // // -------------------------
   const colors = [
-    ["#1f2a38", "#3b1a1f"],  // dark bluish gray → deep muted red
-    ["#2c3542", "#4a1f1f"],  // slightly lighter blue-gray → dark red
-    ["#1e2933", "#382224"],  // very dark gray-blue → muted dark red-brown
-    ["#27303b", "#3a2327"]   // grayish blue → dark reddish gray
+    ["#791F1E", "#410100"],  // dark bluish gray → deep muted red
+    ["#410100", "#4D0007"],  // slightly lighter blue-gray → dark red
+    ["#A73C50", "#61010E"],  // very dark gray-blue → muted dark red-brown
+    ["#791F1E", "#410100"]   // grayish blue → dark reddish gray
   ];
 
-  gsap.to({}, {
-    duration: 10,
-    repeat: -1,
-    onRepeat: () => {
-      const [c1, c2] = colors[Math.floor(Math.random() * colors.length)];
-      gsap.to(".section-box", { "--color1": c1, "--color2": c2, duration: 10, ease: "sine.inOut" });
-    }
-  });
+
+
+gsap.to({}, {
+  duration: 10,
+  repeat: -1,
+  onRepeat: () => {
+    const [c1, c2] = colors[Math.floor(Math.random() * colors.length)];
+    gsap.to(
+      [".video-panel", ".section", ".section-box", "#refList"], // lowercase 'r'
+      { 
+        "--color1": c1,
+        "--color2": c2,
+        duration: 10,
+        ease: "sine.inOut"
+      }
+    );
+  }
+});
 
 
 });
@@ -208,39 +218,39 @@ const grid = document.querySelector('.crops-grid');
 const panels = Array.from(document.querySelectorAll('.crop-panel'));
 
 grid.addEventListener('mousemove', (e) => {
-    const rect = grid.getBoundingClientRect();
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
+  const rect = grid.getBoundingClientRect();
+  const mouseX = e.clientX - rect.left;
+  const mouseY = e.clientY - rect.top;
 
-    panels.forEach((panel) => {
-        const panelRect = panel.getBoundingClientRect();
-        const panelX = panelRect.left - rect.left + panelRect.width / 2;
-        const panelY = panelRect.top - rect.top + panelRect.height / 2;
+  panels.forEach((panel) => {
+    const panelRect = panel.getBoundingClientRect();
+    const panelX = panelRect.left - rect.left + panelRect.width / 2;
+    const panelY = panelRect.top - rect.top + panelRect.height / 2;
 
-        const distance = Math.hypot(mouseX - panelX, mouseY - panelY);
+    const distance = Math.hypot(mouseX - panelX, mouseY - panelY);
 
-        // Map distance to delay: closer panels flip faster
-        const delay = Math.min(distance * 1.5, 100);
+    // Map distance to delay: closer panels flip faster
+    const delay = Math.min(distance * 1.5, 100);
 
-        // Clear previous timeout if any
-        clearTimeout(panel.dataset.timeoutId);
+    // Clear previous timeout if any
+    clearTimeout(panel.dataset.timeoutId);
 
-        // If very close, flip immediately
-        if (distance < 50) {
-            panel.querySelector('.crop-inner').classList.add('crop-flipped');
-        } else {
-            panel.dataset.timeoutId = setTimeout(() => {
-                panel.querySelector('.crop-inner').classList.add('crop-flipped');
-            }, delay);
-        }
-    });
+    // If very close, flip immediately
+    if (distance < 50) {
+      panel.querySelector('.crop-inner').classList.add('crop-flipped');
+    } else {
+      panel.dataset.timeoutId = setTimeout(() => {
+        panel.querySelector('.crop-inner').classList.add('crop-flipped');
+      }, delay);
+    }
+  });
 });
 
 // Reset all panels when mouse leaves
 grid.addEventListener('mouseleave', () => {
-    panels.forEach((panel) => {
-        clearTimeout(panel.dataset.timeoutId);
-        panel.querySelector('.crop-inner').classList.remove('crop-flipped');
-    });
+  panels.forEach((panel) => {
+    clearTimeout(panel.dataset.timeoutId);
+    panel.querySelector('.crop-inner').classList.remove('crop-flipped');
+  });
 });
 

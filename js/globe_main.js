@@ -1,7 +1,7 @@
 // js/globe_main.js
-import { 
-    MeshPhongMaterial, Color, Mesh, CircleGeometry, RingGeometry, SphereGeometry, 
-    Group, Vector3, Quaternion, Raycaster, Vector2 
+import {
+    MeshPhongMaterial, Color, Mesh, CircleGeometry, RingGeometry, SphereGeometry,
+    Group, Vector3, Quaternion, Raycaster, Vector2
 } from './three.module.js';
 import { references } from './references2.js';
 
@@ -20,6 +20,8 @@ const globe = new Globe(container)
     .backgroundColor('rgba(255,255,255,0)')
     .showGlobe(true)
     .showAtmosphere(true)
+    .atmosphereColor('#ffb3b3')   // soft light red tone
+    .atmosphereAltitude(0.09)   
     .globeMaterial(new MeshPhongMaterial({
         color: new Color('#ffffff'),
         transparent: true,
@@ -108,21 +110,31 @@ fetch('./json/countries.json')
                 ? references.filter(r => r.countries.includes(d.properties.iso_a3))
                 : [];
 
+            // Combine country + global references
             const combinedRefs = [...countryRefs, ...globalRefs];
 
+            // Determine heading label
+            let heading = d.properties.name;
+            if (countryRefs.length === 0 && combinedRefs.length > 0) {
+                // No country-specific refs, only global ones
+                heading = "Global";
+            }
+
             refList.innerHTML =
-                `<h3>${d.properties.name}</h3>` +
-                combinedRefs.map(r => {
-                    const authors = r.authors
-                        .replace(/E\. Luedeling/g, '<b>E. Luedeling</b>')
-                        .replace(/J\. N\. Bauer/g, '<b>J. N. Bauer</b>');
-                    return `
-                        <div class="ref-entry">
-                            <a href="${r.link}" target="_blank">${r.title}</a>
-                            <div class="authors">${authors}</div>
-                            <div class="journal">${r.journal}</div>
-                        </div>`;
-                }).join('');
+                `<h3>${heading}</h3>` +
+                combinedRefs
+                    .map(r => {
+                        const authors = r.authors
+                            .replace(/E\. Luedeling/g, '<b>E. Luedeling</b>')
+                            .replace(/J\. N\. Bauer/g, '<b>J. N. Bauer</b>');
+                        return `
+        <div class="ref-entry">
+          <a href="${r.link}" target="_blank">${r.title}</a>
+          <div class="authors">${authors}</div>
+          <div class="journal">${r.journal}</div>
+        </div>`;
+                    })
+                    .join('');
 
             refList.scrollTop = 0;
             setTimeout(() => (controls.autoRotate = true), 15000);
