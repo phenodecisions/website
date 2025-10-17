@@ -22,6 +22,10 @@
 
     <!-- PWA Manifest -->
     <link rel="manifest" href="json/manifest.json">
+
+    <script defer src="https://cloud.umami.is/script.js"
+        data-website-id="c7ef7a79-a0f2-4b3f-b5d7-f1426c7f837f"></script>
+
 </head>
 
 <body>
@@ -32,10 +36,8 @@
 
             <section class="section-box video-panel" id="hero">
 
-                <video autoplay loop muted playsinline class="background-video">
-                    <!-- <source src="videos/13564934_1920_1080_30fps.mp4" type="video/mp4"> -->
-                    Dein Browser unterstützt HTML5 Video nicht.
-                </video>
+                <img src="images/hero_background.png" alt="Hero background" class="background-video">
+
 
                 <!-- Animated Gradient Background -->
                 <!-- <div class="gradient-bg"></div> -->
@@ -133,16 +135,23 @@
                             <div class="about-info">
                                 <h3>Prof. Dr. Eike Luedeling</h3>
                                 <p>CEO</p>
+                                <a href="docs/Eike_Luedeling_CV.pdf" class="cv-download" download>
+                                    Download CV
+                                </a>
                             </div>
-                        </div>
+                                                        </div>
 
                         <div class="section-panel about-panel" onclick="this.classList.toggle('active')">
+
                             <div class="about-image">
                                 <img src="images/julian_bauer.jpg" alt="Julian Bauer">
                             </div>
                             <div class="about-info">
                                 <h3>Julian Bauer</h3>
-                                <p> </p>
+                                <p>Researcher</p>
+                                <a href="docs/Julian_Bauer_CV.pdf" class="cv-download" download>
+                                    Download CV
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -183,6 +192,108 @@
             <script type="module" src="js/globe_main.js"></script>
 
 
+            <section id="crops" class="section">
+                <div class="section-title">Crops we've worked with</div>
+                <div class="crops-grid" id="cropsGrid">
+
+                    <div class="crop-panel" data-crop="pear">
+                        <div class="crop-inner">
+                            <div class="crop-front"><img src="images/fruits/pear2.png" alt="Pear"></div>
+                            <div class="crop-back">Pear</div>
+                        </div>
+                    </div>
+                    <div class="crop-panel" data-crop="jujube">
+                        <div class="crop-inner">
+                            <div class="crop-front"><img src="images/fruits/jujube2.png" alt="Jujube"></div>
+                            <div class="crop-back">Jujube</div>
+                        </div>
+                    </div>
+                    <div class="crop-panel" data-crop="pistachio">
+                        <div class="crop-inner">
+                            <div class="crop-front"><img src="images/fruits/pistachio2.png" alt="Pistachio"></div>
+                            <div class="crop-back">Pistachio</div>
+                        </div>
+                    </div>
+                    <div class="crop-panel" data-crop="peach">
+                        <div class="crop-inner">
+                            <div class="crop-front"><img src="images/fruits/peach2.png" alt="Peach"></div>
+                            <div class="crop-back">Peach</div>
+                        </div>
+                    </div>
+                    <div class="crop-panel" data-crop="almond">
+                        <div class="crop-inner">
+                            <div class="crop-front"><img src="images/fruits/almond3.png" alt="Almond"></div>
+                            <div class="crop-back">Almond</div>
+                        </div>
+                    </div>
+                    <div class="crop-panel" data-crop="chestnut">
+                        <div class="crop-inner">
+                            <div class="crop-front"><img src="images/fruits/chestnut2.png" alt="Chestnut"></div>
+                            <div class="crop-back">Chestnut</div>
+                        </div>
+                    </div>
+                    <div class="crop-panel" data-crop="sweet cherry">
+                        <div class="crop-inner">
+                            <div class="crop-front"><img src="images/fruits/sweet_cherry2.png" alt="Cherry"></div>
+                            <div class="crop-back">Cherry</div>
+                        </div>
+                    </div>
+                    <div class="crop-panel" data-crop="walnut">
+                        <div class="crop-inner">
+                            <div class="crop-front"><img src="images/fruits/walnut2.png" alt="Walnut"></div>
+                            <div class="crop-back">Walnut</div>
+                        </div>
+                    </div>
+                    <div class="crop-panel" data-crop="apple">
+                        <div class="crop-inner">
+                            <div class="crop-front"><img src="images/fruits/apple2.png" alt="Apple"></div>
+                            <div class="crop-back">Apple</div>
+                        </div>
+                    </div>
+                    <div class="crop-panel" data-crop="ornamental cherry">
+                        <div class="crop-inner">
+                            <div class="crop-front"><img src="images/fruits/ornamental_cherry2.png"
+                                    alt="Ornamental Cherry"></div>
+                            <div class="crop-back">Ornamental Cherry</div>
+                        </div>
+                    </div>
+                    <div class="crop-panel" data-crop="grape">
+                        <div class="crop-inner">
+                            <div class="crop-front"><img src="images/fruits/grapes2.png" alt="Grapevine"></div>
+                            <div class="crop-back">Grapevine</div>
+                        </div>
+                    </div>
+                    <div class="crop-panel" data-crop="apricot">
+                        <div class="crop-inner">
+                            <div class="crop-front"><img src="images/fruits/apricot2.png" alt="Apricot"></div>
+                            <div class="crop-back">Apricot</div>
+                        </div>
+                    </div>
+                    <div class="crop-panel" data-crop="forest trees">
+                        <div class="crop-inner">
+                            <div class="crop-front"><img src="images/fruits/forest_trees2.png" alt="Forest Trees"></div>
+                            <div class="crop-back">Forest Trees</div>
+                        </div>
+                    </div>
+                    <div class="crop-panel" data-crop="hazelnut">
+                        <div class="crop-inner">
+                            <div class="crop-front"><img src="images/fruits/hazelnut2.png" alt="Hazelnut"></div>
+                            <div class="crop-back">Hazelnut</div>
+                        </div>
+                    </div>
+                    <!-- your crop-panel items ... -->
+
+                    <button id="cropsToggle" class="crops-toggle" hidden aria-expanded="false">
+                        <span class="label">Show more</span>
+                        <span class="chevron">▾</span>
+                    </button>
+                </div>
+
+            </section>
+
+
+
+            <script type="module" src="js/crop_grid.js"></script>
 
 
             <!-- Services / Products Section -->
@@ -196,7 +307,8 @@
                         <div class="benefit-panel-content">
                             <div class="benefit-panel-title">Phenology Modeling</div>
                             <div class="benefit-panel-text">
-                                We model bloom and dormancy timing using weather data and a process-based modeling framework for to create seasonal long-term forecasts.
+                                We model bloom and dormancy timing using weather data and a process-based modeling
+                                framework for to create seasonal long-term forecasts.
                             </div>
                         </div>
                     </div>
@@ -206,7 +318,8 @@
                         <div class="benefit-panel-content">
                             <div class="benefit-panel-title">Frost Risk<br>Assessments</div>
                             <div class="benefit-panel-text">
-                                We assess and estimate frost risks during vulnerable phenological stages to provide essential insights for informed decision-making about regions and cultivars.
+                                We assess and estimate frost risks during vulnerable phenological stages to provide
+                                essential insights for informed decision-making about regions and cultivars.
                             </div>
                         </div>
                     </div>
@@ -216,7 +329,8 @@
                         <div class="benefit-panel-content">
                             <div class="benefit-panel-title">Cultivar & Region<br>Specific Forecasts</div>
                             <div class="benefit-panel-text">
-                                We calibrate cultivar- and region-specific phenology models to identify promising options that remain reliable under future climate conditions.
+                                We calibrate cultivar- and region-specific phenology models to identify promising
+                                options that remain reliable under future climate conditions.
                             </div>
                         </div>
                     </div>

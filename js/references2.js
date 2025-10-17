@@ -145,7 +145,7 @@ export const references = [
     journal: "Agricultural and Forest Meteorology 307, 108491",
     link: "https://www.sciencedirect.com/science/article/pii/S016819232100174X",
     countries: ["DEU"],
-    species: ["cherry"],
+    species: ["apple", "pear"],
     coordinates: [
       { lat: 50.63, lng: 6.99 } // Campus Klein-Altendorf, University of Bonn, Germany
     ]
@@ -321,6 +321,7 @@ export const references = [
     authors: "A. Picornell, L. Caspersen, E. Luedeling",
     journal: "Agricultural and Forest Meteorology",
     link: "https://www.sciencedirect.com/science/article/pii/S0168192324004155",
+    species: ["forest trees"],
     countries: ["DEU", "GBR", "POL", "LTU", "DNK", "CHE"]
   },
   {
@@ -353,7 +354,7 @@ export const references = [
     journal: "Plants",
     link: "https://www.mdpi.com/2223-7747/12/3/584",
     countries: ["ROU", "ITA", "FRA", "ESP", "GRC"],
-    species: ["peach", "flat peach", "nectarine"],
+    species: ["peach"],
     coordinates: [
       { lat: 44.4, lng: 26.1 },   // Bucharest, Romania
       { lat: 44.4, lng: 7.5 },    // Cuneo, Italy
@@ -386,6 +387,18 @@ export const references = [
       { lat: -43.23, lng: -65.32 },   // Trelew (9)
       { lat: -43.87, lng: -69.03 },   // Paso de Indios (10)
       { lat: -45.75, lng: -67.45 }    // Comodoro Rivadavia (11)
+    ]
+  },
+  {
+    title: "Sensitivity of Grapevine Phenology to Water Availability, Temperature and CO2 Concentration",
+    authors: "J. Martínez-Lüscher, T. Kizildeniz, V. Vučetić, Z. Dai, E. Luedeling, C. van Leeuwen, E. Gomès, I. Pascual, J.J. Irigoyen, F. Morales, S. Delrot",
+    journal: "Frontiers in Environmental Science",
+    link: "https://www.frontiersin.org/journals/environmental-science/articles/10.3389/fenvs.2016.00048/full",
+    countries: ["HRV"],
+    species: ["grape"],
+    coordinates: [
+      { lat: 44.5, lng: 16.0 },   // Representative point for the 5 phenological stations in Crotia
+
     ]
   }
 ];
