@@ -400,5 +400,47 @@ export const references = [
       { lat: 44.5, lng: 16.0 },   // Representative point for the 5 phenological stations in Crotia
 
     ]
+  },
+  {
+    title: "Contrasting responses to climate change – predicting bloom of major temperate fruit tree species in the Mediterranean region and Central Europe",
+    authors: "L. Caspersen, K. Schiffers, A. Picornell, J. A. Egea, A. Delgado, A. El Yaacoubi, H. Benmoussa, J. Rodrigo, E. Fadón, M. Ben Mimoun, M. Ghrab, O. Kodad, D. Ruiz, E. Luedeling",
+    journal: "Agricultural and Forest Meteorology",
+    link: "https://www.sciencedirect.com/science/article/pii/S0168192325004782?ssrnid=5106075&dgcid=SSRN_redirect_SD",
+    countries: ["GER", "ESP", "TUN", "MAR"],
+    species: ["apple", "pear", "apricot", "sweet cherry", "plum", "almond", "pistachio"],
+    coordinates: [
+      { lat: 41.65, lng: -0.88 },   // Zaragoza, Spain (1)
+      { lat: 50.61, lng: 6.99 },    // Klein-Altendorf, Germany (2)
+      { lat: 34.75, lng: 10.75 },   // Sfax, Tunisia (3)
+      { lat: 38.24, lng: -1.41 },   // Cieza, Spain (4)
+      { lat: 33.88, lng: -5.54 },   // Meknes, Morocco (5)
+      { lat: 38.06, lng: -1.05 },   // Santomera, Spain (6)
+    ]
+  },
+  {
+    title: "Spring Phenology Projections for Apples in Southwestern Germany Indicate Persistent Frost Risk Levels",
+    authors: "L. Caspersen, K. Schiffers, A. Milyaev, D. Neuwald, E. Luedeling",
+    journal: "Agricultural and Forest Meteorology",
+    link: "https://www.sciencedirect.com/science/article/pii/S0168192325004435?ssrnid=5281003&dgcid=SSRN_redirect_SD",
+    countries: ["GER"],
+    species: ["apple"],
+    coordinates: [
+      { lat: 47.77, lng: 9.56 },   // Bavendorf, BW, Germany (1)
+
+    ]
+  },
+    {
+    title: "Projecting almond bloom dates in California with the PhenoFlex framework",
+    authors: "L. Caspersen, K. Jarvis-Shean, E. Luedeling",
+    journal: "Acta Horticulturae",
+    link: "https://www.actahort.org/books/1406/1406_64.htm",
+    countries: ["USA"],
+    species: ["almond"],
+    coordinates: [
+      { lat: 37.62, lng: -120.62 },   // Modesto
+      { lat: 39.78, lng: -121.85 },   // Chico
+      { lat: 39.61, lng: -121.82 }   // Durham
+
+    ]
   }
 ];

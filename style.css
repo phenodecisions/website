@@ -180,11 +180,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-
   min-height: 30vh;
-  /* base height (40% of viewport) */
   height: clamp(300px, 35vh, 600px);
-  /* responsive height range */
 }
 
 .video-panel .background-video {
@@ -194,7 +191,7 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  z-index: -1;
+  z-index: 0;
 }
 
 /* === Centered Text Content === */
@@ -216,7 +213,6 @@ body {
   color: white;
   box-sizing: border-box;
 
-  /* ensures it's always centered vertically within variable height panels */
   height: 100%;
 }
 
@@ -1347,6 +1343,24 @@ body.globe-body {
     background 0.3s ease,
     border-color 0.3s ease,
     box-shadow 0.3s ease;
+}
+
+.satellite { 
+  text-decoration: none; 
+  color: #1a1a1a; /* base text color */
+}
+
+/* was `.satellite a` before */
+.satellite .title {
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #053680;
+}
+
+/* was `.satellite a:hover` before */
+.satellite:hover .title {
+  color: #131212;
+  text-decoration: underline;
 }
 
 /* --- Soft glass highlight --- */

@@ -82,13 +82,16 @@ function createSatellites(panel) {
 
     // Create one satellite per matching reference
     matchingRefs.forEach((ref, i) => {
-        const sat = document.createElement('div');
+        const sat = document.createElement('a');
         sat.className = 'satellite';
+        sat.href = ref.link;
+        sat.target = '_blank';
+        sat.rel = 'noopener noreferrer';
         sat.innerHTML = `
-      <a href="${ref.link}" target="_blank">${truncate(ref.title, 35)}</a>
-      <div class="authors">${ref.authors}</div>
-      <div class="journal">${ref.journal}</div>
-    `;
+    <div class="title">${truncate(ref.title, 35)}</div>
+    <div class="authors">${ref.authors}</div>
+    <div class="journal">${ref.journal}</div>
+  `;
 
         const angle = i * angleStep - Math.PI / 2;
         const offsetX = Math.cos(angle) * radius;
@@ -101,28 +104,44 @@ function createSatellites(panel) {
         orbitContainer.appendChild(sat);
         satellites.push(sat);
 
-        gsap.fromTo(
-            sat,
-            { opacity: 0, scale: 0 },
-            { opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(2)', delay: i * 0.03 }
-        );
-        // ⬇️ Continuous subtle up-and-down hovering
-        // 🌊 Independent floating motion (random direction + offset start)
-        const hoverAmplitude = 5 + Math.random() * 4;   // 8–12px up/down
-        const hoverDuration = 2.5 + Math.random() * 1.5; // 2.5–4s for variety
-        const hoverDelay = Math.random() * 2.5;          // random initial delay
-        const direction = Math.random() < 0.5 ? "+=" : "-="; // random up or down first
+        // Animations (unchanged)
+        gsap.fromTo(sat, { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(2)', delay: i * 0.03 });
+        const hoverAmplitude = 5 + Math.random() * 4;
+        const hoverDuration = 2.5 + Math.random() * 1.5;
+        const direction = Math.random() < 0.5 ? "+=" : "-=";
+        gsap.to(sat, { y: `${direction}${hoverAmplitude}`, duration: hoverDuration, ease: "sine.inOut", repeat: -1, yoyo: true });
 
-        gsap.to(sat, {
-            y: `${direction}${hoverAmplitude}`,
-            duration: hoverDuration,
-            ease: "sine.inOut",
-            repeat: -1,
-            yoyo: true,
+        // 👇 Fix: unflip immediately, but delay reset so navigation can fire
+        sat.addEventListener('pointerdown', (e) => {
+            e.stopPropagation();
+            const panelEl = sat.closest('.crop-panel');
+            const inner = panelEl?.querySelector('.crop-inner');
+            if (inner) inner.classList.remove('crop-flipped');  // visual feedback now
         });
 
+        sat.addEventListener('click', (e) => {
+            e.stopPropagation();                   // don't bubble to panel
+            // DO NOT call preventDefault; let the link navigate
+            // Delay reset to next frame so the browser captures the click navigation
+            requestAnimationFrame(() => resetPanels());
+        });
 
+        // Optional: keyboard polish (don’t block default Enter navigation; prevent Space scroll)
+        sat.addEventListener('keydown', (e) => {
+            if (e.key === ' ') e.preventDefault();
+        });
     });
+
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) resetPanels();
+    });
+
+    window.addEventListener('pageshow', (e) => {
+        if (e.persisted) resetPanels();
+    });
+
+    // Also reset when the window regains focus (covers some edge cases)
+    window.addEventListener('focus', resetPanels);
 
     // Shared rotation (same speed for all)
     const rotation = { angle: 0 };
